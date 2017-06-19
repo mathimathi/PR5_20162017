@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home van de decklijsten</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.4/angular-resource.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="deckscript.js"></script>
+</head>
+
+<body ng-app="app">
+    <div class="container" ng-controller="DeckController">
+        <div class="page-header">
+            <h1>Lijst met decks <small>testversie</small></h1> </div>
+        <table class="table table-striped">
+            <tr>
+                <th>Deck</th>
+                <th>Creator</th>
+                <th>Leukrating</th>
+                <th>Mulliganrating</th>
+            </tr>
+            <tr ng-repeat="deck in data">
+                <td><a ng-click="KiesDeck(deck.Id)">{{deck.Deckname}}</a></td>
+                <td>{{deck.Creator}}</td>
+                <td>{{deck.RatingLeuk}}</td>
+                <td>{{deck.RatingMulligan}}</td>
+            </tr>
+        </table>
+        <button ng-click="GetDecks()" value="Get Decks">Show decks</button>
+        <br>
+        <button ng-click="PostDeck()" value="Post Decks">Maak deck</button>
+
+        <!--VANAF HIER WORDT HET DECK GETOOND-->
+        <div ng-show="visible">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">{{DisplayDeck.Deckname}}</p> <small>CREATOR : {{DisplayDeck.Creator}} - ID : {{DisplayDeck.Id}}</small></div>
+                <div class="panel-body">
+                    <h3>Deck</h3>
+                    <ul class="list-inline">
+                        <li ng-repeat="card in DisplayDeck.Decklist">
+                            <figure> <img src="{{card.Cardlink}}" width="120" />
+                                <figcaption>{{card.Cardname}}</figcaption>
+                            </figure>
+                        </li>
+                    </ul>
+                    <h3>Sideboard</h3>
+                    <ul class="list-inline">
+                        <li ng-repeat="card in DisplayDeck.Sideboard">
+                            <figure> <img src="{{card.Cardlink}}" width="100" />
+                                <figcaption>{{card.Cardname}}</figcaption>
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
